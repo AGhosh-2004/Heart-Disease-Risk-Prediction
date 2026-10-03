@@ -42,7 +42,7 @@ with tab1:
     )
     resting_ecg = st.selectbox(
         "Resting ECG Results",
-        ["Normal", "ST-T wave Abnormality",
+        ["Normal", "ST-T Wave Abnormality",
          "Left Ventricular Hypertrophy"]
     )
     max_hr = st.number_input(
@@ -69,7 +69,7 @@ with tab1:
 
     chest_pain = ["Atypical Angina", "Non-Anginal Pain", "Asymptomatic", "Typical Angina"].index(chest_pain)
 
-    fasting_bs = 1 if fasting_bs == "> 120 mg/dl" else 0
+    fasting_bs = 1 if fasting_bs == ">= 120 mg/dl" else 0
 
     resting_ecg = ["Normal", "ST-T Wave Abnormality", "Left Ventricular Hypertrophy"].index(resting_ecg)
 
@@ -95,9 +95,8 @@ with tab1:
     algonames = ['Decision Trees', 'Logistic Regression', 'Random Forest', 'Support Vector Machine']
     model_names = ['tree.pkl', 'LogisticR.pkl', 'RandomForest.pkl', 'SVM.pkl']
 
-    predictions = []
-
     def predict_heart_disease(data):
+        predictions = []
         for modelname in model_names:
             model = pickle.load(open(modelname,'rb'))
             prediction = model.predict(data)
@@ -111,7 +110,7 @@ with tab1:
 
         result = predict_heart_disease(input_data)
 
-        for i in range(len(predictions)):
+        for i in range(len(result)):
             st.subheader(algonames[i])
             if result[i][0] == 0:
                 st.write("No Heart Disease Detected")
